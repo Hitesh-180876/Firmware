@@ -1,0 +1,28 @@
+table, th, td{
+    border: 2px solid;
+}
+.float-container {
+    
+    padding: 20px;
+}
+
+.float-child {
+    width: 50%;
+    /* float: left; */
+    display: inline;
+    padding: 20px;
+}  
+.button {
+    background-color: green;
+    color: #FFFFFF;
+
+    padding: 1px;
+    border-radius: 3px;
+   
+}
+
+.box {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    
+}
