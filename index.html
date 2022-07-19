@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="index.css">
+
+
+  <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+
+</head>
+
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <h3 style="color: white;">Firmware Update Configuration</h3>
+  </nav>
+
+  <br>
+
+  <div class="container">
+    <form class="form-inline">
+      <select>
+        <optgroup label="Choose Option">
+          <option value="option" selected>QA</option>
+          <option value="option">STAGE</option>
+        </optgroup>
+      </select>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <label for="customerId">Customer Id</label>
+      <input type="text" id="customerId" placeholder="Enter customer Id" name="customerId">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <label for="modalNumber">Model Number</label>
+      <input type="text" id="modelNumber" placeholder="Enter model Number" name="modelNumber">
+      <br>
+      <br>
+      <button type="button" class="btn btn-success button" width="30" height="50" id="submit">Submit</button>
+    </form>
+
+  </div>
+
+
+  <br>
+  <div class="col-sm-12 border-2 container box">
+    <div class="panel-body">
+      <table id="tabl-firmware" class="table table-bordered" cellpadding="0" cellspacing="0" width="100%">
+        <thead>
+          <th>Entry Id</th>
+          <th>Firmware version</th>
+          <th>Update To Next</th>
+          <th>Update status</th>
+          <th>File MD5 Hash</th>
+          <th>Download Url </th>
+          <th>Update Key</th>
+          <th>Release Date</th>
+          <th>Android version</th>
+          <th>ios Version</th>
+          <th>Edit</th>
+        </thead>
+        <tbody id="tableData" class="firmwareGet">
+
+        </tbody>
+
+      </table>
+      <div id="noData" style="font-size: xx-large;">
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-12">
+    <!-- <button class="btn btn-dark" id="add">+Add</button> -->
+    <!-- <a href="#" data-bs-toggle="modal" data-bs-target="#firmwareModal" class="btn btn-dark float-start">+Add</a>     -->
+    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#firmwareModal">
+      +Add
+    </button>
+
+  </div>
+
+  <!-- Save Modal -->
+  <div class="modal fade" id="firmwareModal" tabindex="-1" role="dialog" aria-labelledby="firmwareModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="firmwareModallLabel">Update Firmare Configuration</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form id="firmwareModal1">
+            <div class="form-group">
+              <label>Customer Id</label>
+              <input type="text" class="form-control customerId" id="customer_Id" placeholder="Enter customer Id">
+            </div>
+            <div class="form-group">
+              <label>Model Number</label>
+              <input type="text" class="form-control modelNumber" id="model_Number" placeholder="Enter model Number">
+            </div>
+            <div class="form-group">
+              <label>Firmware Version</label>
+              <input type="text" class="form-control firmwareVersion" id="firmware_Version"
+                placeholder="Enter Firmware Version">
+            </div>
+            <div class="form-group">
+              <label>Enter Update To Next Id</label>
+              <input type="text" class="form-control updateToNextId" id="update_To_Next_Id"
+                placeholder="Update To Next Id">
+            </div>
+            <div class="form-group">
+              <label>Update Status</label>
+              <input type="text" class="form-control updateStatus" id="update_Status" placeholder="Enter Update Status">
+            </div>
+            <div class="form-group">
+              <label>File MD5 Hash</label>
+              <input type="text" class=" form-control fileMD5Hash" id="file_MD5_Hash" placeholder="Enter File MD5 Hash">
+            </div>
+            <div class="form-group">
+              <label>Add File</label>
+              <input type="file" class="form-control addFile" id="add_File" placeholder="Add file">
+            </div>
+            <div class="form-group">
+              <label>Update Key</label>
+              <input type="text" class="form-control updateKey" id="update_Key" placeholder="Enter Update Key">
+            </div>
+            <div class="form-group">
+              <label>Release Date</label>
+              <input type="text" class="form-control releaseDate" id="release_Date" placeholder="Enter Release Date">
+            </div>
+            <div class="form-group">
+              <label>Minimum Android Version</label>
+              <input type="text" class="form-control  minAndroidAppVersion" id="min_Android_App_Version"
+                placeholder="Enter Minimum Android Version">
+            </div>
+            <div class="form-group">
+              <label>Minimum ios Version</label>
+              <input type="text" class="form-control minIosAppVersion" id="min_Ios_App_Version"
+                placeholder="Enter Minimum ios   Version">
+            </div>
+            <div id="response">
+
+            </div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button  " class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" id="saveData">Save Data</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!--  Edit Modal -->
+  <div class="modal fade" id="firmwareModalEdit" tabindex="-1" role="dialog" aria-labelledby="firmwareModalEditLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="firmwareModallEditLabel">Edit Firmware Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-bodyEdit">
+          <form id="firmwareModal2">
+
+            <input type="hidden" id="entryIdEdit" class="entryIdEdit">
+            <input type="hidden" id="customerIdEdit" class="customerIdEdit">
+            <input type="hidden" id="modelNumberEdit" class="modelNumberEdit">
+
+            <div class="form-group">
+              <label>Firmware Version</label>
+              <input type="text" class="form-control firmwareVersionEdit" id="firmwareVersionEdit"
+                placeholder="Enter Firmware Version">
+            </div>
+            <div class="form-group">
+              <label>Enter Update To Next Id</label>
+              <input type="text" class="form-control updateToNextIdEdit" id="updateToNextIdEdit"
+                placeholder="Update To Next Id">
+            </div>
+            <div class="form-group">
+              <label>File MD5 Hash</label>
+              <input type="text" class="form-control fileMD5HashEdit" id="fileMD5HashEdit"
+                placeholder="Enter File MD5 Hash">
+            </div>
+            <div class="form-group">
+              <label>Download Url</label>
+              <input type="text" class="form-control downloadUrlEdit" id="downloadUrlEdit"
+                placeholder="Enter Download Url">
+            </div>
+            <div class="form-group">
+              <label>Update Status</label>
+              <input type="text" class="form-control updateStatusEdit" id="updateStatusEdit"
+                placeholder="Enter Update Status">
+            </div>
+            <div class="form-group">
+              <label>Release Date</label>
+              <input type="text" class="form-control releaseDateEdit" id="releaseDateEdit"
+                placeholder="Enter Release Date">
+            </div>
+            <div class="form-group">
+              <label>Update Key</label>
+              <input type="text" class="form-control updateKeyEdit" id="updateKeyEdit" placeholder="Enter Update Key">
+            </div>
+            <div class="form-group">
+              <label>Minimum Android Version</label>
+              <input type="text" class="form-control  minAndroidAppVersionEdit" id="minAndroidAppVersionEdit"
+                placeholder="Enter Minimum Android Version">
+            </div>
+            <div class="form-group">
+              <label>Minimum ios Version</label>
+              <input type="text" class="form-control minIosAppVersionEdit" id="minIosAppVersionEdit"
+                placeholder="Enter Minimum ios  Version">
+            </div>
+
+          </form>
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="updateDataButton">Update Data</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <script src="jquery-3.6.0.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+
+
+
+
+
+  <script src="index.js"></script>
+
+  </script>
+</body>
+
+</html>
+
+
+<!-- <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <form id="frmFirmware" name="frmFirmware" class="form-inline">
+          <select>
+            <optgroup label="Choose Option">
+              <option value="option">QA</option>
+              <option value="option" selected>STAGE</option>
+            </optgroup>
+          </select>
+          <div class="form-group ">
+            <label>Customer Id</label>
+            <input type="text" id="customerId" name="customerId" placeholder="customer id" class="form-control">
+
+          </div>
+          <div class="form-group">
+            <label>Model Number</label>
+            <input type="text" id="modelNumber" name="modelNumber" placeholder="model number" class="form-control">
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-success" id="submit">Submit</button>
+            
+          </div>
+
+        </form>
+
+
+      </div>
+
+    </div>
+  </div> -->
