@@ -4,8 +4,7 @@ $(document).ready(function () {
 console.log("hello js")
 
 
-//Get records from customer Id and Modal Number
-var data = ""
+//Get records from customer Id and Model Number
 function getFirmware() {
     var custId = document.getElementById('customerId').value;
     var modelNumber = $('#modelNumber').val();
@@ -34,7 +33,7 @@ function getRecordsForCustomerIdAndModelNumber(response) {
         $("#noData").hide(10000)
     }
     for (i = 0; i < data.length; i++) {
-        $("#tableData")
+        $("#tableBody")
             .append(
                 '<tr><td class="row_id">'
                 + data[i].entryId
@@ -99,9 +98,16 @@ function saveForm() {
     for (let obj of fd) {
         console.log(obj);
     }
+
     var request = new XMLHttpRequest();
 
-    request.open("POST", "http://localhost:5600/firmware/config");
+
+    request.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+            console.log(this.responseText);
+        }
+    });
+    request.open("POST", "http://localhost:5600/firmware/config", false);
 
     request.send(fd);
     document.getElementById("response").innerHTML = "Submitted successfully";
@@ -148,6 +154,7 @@ $(document).ready(function () {
 
     $(document).on('click', '#updateDataButton', function () {
         var entry_Id1 = $("#entryIdEdit").val();
+        alert(entry_Id1);
         var customer_Id1 = $("#customerIdEdit").val();
         var model_Number1 = $("#modelNumberEdit").val();
         var firmware_Version1 = $("#firmwareVersionEdit").val();
@@ -175,22 +182,33 @@ $(document).ready(function () {
         fdEdit.append("minIosAppVersion", min_Ios_App_Version1);
 
 
-       
-        var request = new XMLHttpRequest();
+
+        var xhr = new XMLHttpRequest();
+
         for (let obj1 of fdEdit) {
             console.log(obj1);
         }
-        request.onerror = function(){
-            console.log("Request Failed");
-        };
 
-        request.open("PUT", "http://localhost:5600/firmware/config", true);
+        xhr.open("PUT", "http://localhost:5600/firmware/config", true);
 
-        request.send(fdEdit);
+        try {
+            xhr.send(fdEdit);
+            if (xhr.status == 0) {
+                alert("Status code "+xhr.status+"and updated Successfully");
+                
+            } else {
+                alert("error");
+            }
+        } catch (err) { 
+            alert("Request failed");
+        }
+
         $('#firmwareModalEdit').modal('hide');
-        $('.firmwareGet').html("");
+        $("#tableBody").empty();
+        // $("#tableBody").children().remove()
+
         getFirmware();
-        
+
     });
 
 
@@ -212,3 +230,32 @@ $("#firmwareModal").validate({
         }
     },
 });
+
+
+/*
+for (i = 0; i < data.length; i++) {
+        $("#tableData")
+            .append(
+                '<tr><td class="row_id">'
+                + data[i].entryId
+                + '</td> <td class="fv">'
+                + data[i].firmwareVersion
+                + '</td> <td class="utnd">'
+                + data[i].updateToNextId
+                + '</td> <td class="ustatus">'
+                + data[i].updateStatus
+                + '</td> <td class="fmHash">'
+                + data[i].fileMd5Hash
+                + '</td> <td class="dUrl">'
+                + data[i].downloadUrl
+                + '</td> <td class ="upKey">'
+                + data[i].updateKey
+                + '</td> <td class="rDate">'
+                + data[i].releaseDate
+                + '</td> <td class="minAAV">'
+                + data[i].minAndroidAppVersion
+                + '</td> <td class="minIAV">'
+                + data[i].minIosAppVersion
+                + '</td> <td> <button type="button" class="btn btn-success  editFirmwareDetails">Edit</button></td></tr>');
+    }
+*/
